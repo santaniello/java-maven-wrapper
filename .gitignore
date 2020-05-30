@@ -1,0 +1,23 @@
+**/target
+**/classes
+**/out
+**/logs
+**/pids
+**/dumps
+**.log
+.factorypath
+#Visual Studio Code
+.vscode
+########## Project Files ##########
+**default-folders.properties
+.attach_pid*
+########## InteliJ IDEA ##########
+*.iml
+.idea
+########## Eclipse IDEA ##########
+.settings
+.classpath
+.project
+.metadata
+########## MAC OS ##########
+**.DS_Store
