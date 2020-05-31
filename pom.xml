@@ -11,7 +11,7 @@
         <java.version>11</java.version>
         <mainClass>br.com.jmw.JmwCommand</mainClass>
         <graal.version>20.1.0</graal.version>
-        <picocli.version>4.1.4</picocli.version>
+        <picocli.version>4.3.2</picocli.version>
         <picocli-jansi-graalvm.version>1.1.0</picocli-jansi-graalvm.version>
         <jansi.version>1.18</jansi.version>
         <junit.version>5.5.2</junit.version>
@@ -19,6 +19,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <jackson.version>2.11.0</jackson.version>
     </properties>
     <dependencies>
         <dependency>
@@ -53,6 +54,11 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
     </dependencies>
     <build>
@@ -113,7 +119,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>1.4</version>
+                <version>3.2.3</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -124,6 +130,17 @@
                 </executions>
                 <configuration>
                     <finalName>${project.artifactId}-${project.version}</finalName>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>module-info.class</exclude>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.DSA</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
                 </configuration>
             </plugin>
             <plugin>
