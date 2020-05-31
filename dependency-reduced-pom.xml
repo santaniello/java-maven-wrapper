@@ -153,10 +153,10 @@
   <properties>
     <mainClass>br.com.jmw.JmwCommand</mainClass>
     <java.version>11</java.version>
-    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.source>11</maven.compiler.source>
     <jackson.version>2.11.0</jackson.version>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.target>11</maven.compiler.target>
     <graal.version>20.1.0</graal.version>
     <picocli.version>4.3.2</picocli.version>
     <jansi.version>1.18</jansi.version>
