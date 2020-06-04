@@ -90,6 +90,9 @@
                 <configuration>
                     <imageName>${project.name}</imageName>
                     <mainClass>${mainClass}</mainClass>
+                    <buildArgs>--enable-https</buildArgs>
+                    <buildArgs>--enable-http</buildArgs>
+                    <buildArgs>--enable-all-security-services</buildArgs>
                     <!--<buildArgs>${buildArgs}</buildArgs>-->
                     <!--          <buildArgs>-J&#45;&#45;add-exports=java.base/jdk.internal.module=ALL-UNNAMED</buildArgs>-->
                     <!--          <buildArgs>-H:+ReportUnsupportedElementsAtRuntime &#45;&#45;allow-incomplete-classpath</buildArgs>-->

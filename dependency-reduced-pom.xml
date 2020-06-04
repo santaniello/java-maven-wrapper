@@ -39,6 +39,9 @@
         <configuration>
           <imageName>${project.name}</imageName>
           <mainClass>${mainClass}</mainClass>
+          <buildArgs>--enable-https</buildArgs>
+          <buildArgs>--enable-http</buildArgs>
+          <buildArgs>--enable-all-security-services</buildArgs>
         </configuration>
       </plugin>
       <plugin>
