@@ -6,10 +6,10 @@ import picocli.CommandLine;
 import java.util.concurrent.Callable;
 
 @CommandLine.Command(
-        name = "package",
-        subcommands = {
-           PackageSearchCommand.class,
-        }
+        name = "package"//,
+//        subcommands = {
+//           SearchCommand.class,
+//        }
 )
 public class PackageCommand implements Callable<Integer> {
     @Override

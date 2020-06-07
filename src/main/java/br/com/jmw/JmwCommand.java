@@ -1,5 +1,6 @@
 package br.com.jmw;
 
+import br.com.jmw.commands.search.SearchCommand;
 import br.com.jmw.commands.pkg.PackageCommand;
 import picocli.CommandLine;
 import picocli.jansi.graalvm.AnsiConsole;
@@ -10,7 +11,8 @@ import java.util.concurrent.Callable;
         version = "jwt 1.0",
         description = "Prints the checksum (MD5 by default) of a file to STDOUT.",
         subcommands = {
-             PackageCommand.class
+             PackageCommand.class,
+             SearchCommand.class
         }
 )
 public class JmwCommand  implements Callable<Integer> {

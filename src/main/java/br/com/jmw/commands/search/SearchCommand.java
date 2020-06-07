@@ -1,5 +1,7 @@
-package br.com.jmw.commands.pkg;
+package br.com.jmw.commands.search;
 
+import br.com.jmw.commands.search.dtos.Dependency;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import picocli.CommandLine;
 
 import java.io.IOException;
@@ -13,11 +15,11 @@ import java.util.concurrent.Callable;
 @CommandLine.Command(
         name = "search"
 )
-public class PackageSearchCommand implements Callable<Integer> {
+public class SearchCommand implements Callable<Integer> {
 
     private final String URL_SEARCH_MAVEN =  "http://search.maven.org/solrsearch/select";
     private final String FORMAT =  "json";
-    private final String ROWS = "20";
+    private final String ROWS = "2";
     @CommandLine.Option(names = {"-d", "--dependency"})
     private String dependency;
 
@@ -35,7 +37,10 @@ public class PackageSearchCommand implements Callable<Integer> {
                     .build();
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            ObjectMapper mapper = new ObjectMapper();
+            Dependency dependency = mapper.readValue(response.body(), Dependency.class);
             System.out.println(response.body());
+            System.out.println(dependency);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
