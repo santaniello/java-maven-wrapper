@@ -1,4 +1,4 @@
-package br.com.jmw.commands.search.dtos;
+package br.com.jmw.command.search.dtos;
 
 public class Dependency {
     private Response response;

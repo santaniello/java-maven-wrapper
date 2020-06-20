@@ -154,7 +154,7 @@
     </dependency>
   </dependencies>
   <properties>
-    <mainClass>br.com.jmw.JmwCommand</mainClass>
+    <mainClass>br.com.jmw.JmwApplication</mainClass>
     <java.version>11</java.version>
     <maven.compiler.source>11</maven.compiler.source>
     <jackson.version>2.11.0</jackson.version>
