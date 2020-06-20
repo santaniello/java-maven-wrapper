@@ -1,10 +1,8 @@
 package br.com.jmw.commands.search.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.Arrays;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Response {
 
     private Docs[] docs;
