@@ -2,56 +2,16 @@ package br.com.jmw.command.search.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import lombok.Data;
+import lombok.ToString;
 
-import java.util.Arrays;
-
+@Data
+@ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @RegisterForReflection
 public class Response {
-
     private Docs[] docs;
-
     private String numFound;
-
     private String start;
 
-    public Docs[] getDocs ()
-    {
-        return docs;
-    }
-
-    public void setDocs (Docs[] docs)
-    {
-        this.docs = docs;
-    }
-
-    public String getNumFound ()
-    {
-        return numFound;
-    }
-
-    public void setNumFound (String numFound)
-    {
-        this.numFound = numFound;
-    }
-
-    public String getStart ()
-    {
-        return start;
-    }
-
-    public void setStart (String start)
-    {
-        this.start = start;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Response{" +
-                "docs=" + Arrays.toString(docs) +
-                ", numFound='" + numFound + '\'' +
-                ", start='" + start + '\'' +
-                '}';
-    }
 }
