@@ -18,7 +18,6 @@ public class JmwApplication implements QuarkusApplication {
 
     @Override
     public int run(String... args) throws Exception {
-        System.out.println("aeeeee");
         if(args.length == 0) {
             Quarkus.waitForExit();
             return 0;
@@ -26,9 +25,8 @@ public class JmwApplication implements QuarkusApplication {
         if (args.length == 1) {
             args = CommandLineUtils.translateCommandline(args[0]);
         }
-        return new CommandLine(new QuarkusCommand())
+        return   new CommandLine(new QuarkusCommand())
                 .addSubcommand(jmwCommand)
                 .execute(args);
-
     }
 }
