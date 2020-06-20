@@ -1,8 +1,12 @@
 package br.com.jmw.command.search.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
 import java.util.Arrays;
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+@RegisterForReflection
 public class Docs {
 
     private String p;
@@ -123,6 +127,9 @@ public class Docs {
     public void setTimestamp (String timestamp)
     {
         this.timestamp = timestamp;
+    }
+
+    public Docs() {
     }
 
     @Override

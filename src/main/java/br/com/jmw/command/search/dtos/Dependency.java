@@ -1,7 +1,13 @@
 package br.com.jmw.command.search.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@RegisterForReflection
 public class Dependency {
     private Response response;
+
 
     public Response getResponse ()
     {
