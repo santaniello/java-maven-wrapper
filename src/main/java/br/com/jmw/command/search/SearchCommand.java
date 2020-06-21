@@ -14,10 +14,10 @@ public class SearchCommand implements Runnable {
     @Inject
     private ExternalMavenService mavenService;
 
-    @CommandLine.Option(names = {"-d", "--dependency"}, description = "Who will we greet?")
+    @CommandLine.Option(names = {"-d", "--dependency"}, description = "Dependency's name")
     private String name;
 
-    @CommandLine.Option(names = {"-l", "--limit"}, description = "Who will we greet?", defaultValue = "2")
+    @CommandLine.Option(names = {"-l", "--limit"}, description = "Quantity of dependencies to show", defaultValue = "2")
     private String limit;
 
     @Override

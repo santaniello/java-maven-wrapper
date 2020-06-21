@@ -1,7 +1,6 @@
 package br.com.jmw;
 
 import br.com.jmw.command.JmwCommand;
-import br.com.jmw.command.QuarkusCommand;
 import br.com.jmw.command.TesteCommand;
 import br.com.jmw.command.search.SearchCommand;
 import io.quarkus.runtime.Quarkus;
