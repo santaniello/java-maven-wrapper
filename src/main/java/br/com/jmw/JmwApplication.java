@@ -13,9 +13,6 @@ import javax.inject.Inject;
 
 @QuarkusMain
 public class JmwApplication implements QuarkusApplication {
-    @Inject
-    private JmwCommand jmwCommand;
-
     @Override
     public int run(String... args) throws Exception {
         if(args.length == 0) {
@@ -25,8 +22,8 @@ public class JmwApplication implements QuarkusApplication {
         if (args.length == 1) {
             args = CommandLineUtils.translateCommandline(args[0]);
         }
-        return   new CommandLine(new QuarkusCommand())
-                .addSubcommand(jmwCommand)
+        return   new CommandLine(new JmwCommand())
+                //.addSubcommand(new JmwCommand())
                 .execute(args);
     }
 }

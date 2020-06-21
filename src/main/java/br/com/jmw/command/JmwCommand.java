@@ -1,20 +1,13 @@
 package br.com.jmw.command;
 
-import br.com.jmw.command.search.dtos.Dependency;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import br.com.jmw.command.search.SearchCommand;
 import picocli.CommandLine;
 
-import javax.enterprise.context.Dependent;
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.concurrent.Callable;
-
-@Dependent
-@CommandLine.Command(name = "jmw", mixinStandardHelpOptions = true, description = "Greet person by their name")
-public class JmwCommand implements Callable<Integer> {
+@CommandLine.Command(name="jmw",subcommands = {
+        CommandLine.HelpCommand.class
+    //    SearchCommand.class
+})
+public class JmwCommand implements Runnable {
     private final String URL_SEARCH_MAVEN =  "https://search.maven.org/solrsearch/select";
     private final String FORMAT =  "json";
     private final String ROWS = "2";
@@ -46,8 +39,7 @@ public class JmwCommand implements Callable<Integer> {
     //}
 
     @Override
-    public Integer call() throws Exception {
+    public void run() {
         System.out.print("Teste");
-        return  0;
     }
 }
