@@ -14,10 +14,10 @@ public class SearchCommand implements Runnable {
     private ExternalMavenService mavenService;
 
     @CommandLine.Option(names = {"-d", "--dependency"}, description = "Who will we greet?", defaultValue = "World")
-    private String name;
+    private String dependency;
 
     @Override
     public void run() {
-       mavenService.searchDependency(name);
+       mavenService.search(dependency);
     }
 }

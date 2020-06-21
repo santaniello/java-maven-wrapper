@@ -24,7 +24,7 @@ public class ExternalMavenService {
                 .build();
     }
 
-    public Dependency searchDependency(String dependency){
+    public Dependency search(String dependency){
         try {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
