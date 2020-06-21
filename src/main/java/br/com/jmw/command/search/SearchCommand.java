@@ -1,7 +1,7 @@
 package br.com.jmw.command.search;
 
 
-import br.com.jmw.command.search.dtos.MavenDependency;
+import br.com.jmw.command.search.dto.MavenResponseDTO;
 import picocli.CommandLine;
 
 import javax.enterprise.context.Dependent;
@@ -22,6 +22,6 @@ public class SearchCommand implements Runnable {
 
     @Override
     public void run() {
-        MavenDependency dependency = mavenService.search(name, limit);
+        MavenResponseDTO dependency = mavenService.search(name, limit);
     }
 }

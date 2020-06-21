@@ -1,6 +1,6 @@
 package br.com.jmw.command.search;
 
-import br.com.jmw.command.search.dtos.MavenDependency;
+import br.com.jmw.command.search.dto.MavenResponseDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.enterprise.context.Dependent;
@@ -23,14 +23,16 @@ public class ExternalMavenService {
                 .build();
     }
 
-    public MavenDependency search(String dependency, String limit){
+    public MavenResponseDTO search(String dependency, String limit){
         try {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create(URL_SEARCH_MAVEN+"?q="+dependency+"&rows="+limit+"&wt="+EXTENSION))
                 .build();
             String body = httpClient.send(request, HttpResponse.BodyHandlers.ofString()).body();
-            return toDependency(body);
+            MavenResponseDTO response = toDependency(body);
+            System.out.println("dddd"+response.getResponse().getNumFound());
+            return response;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -39,10 +41,10 @@ public class ExternalMavenService {
         return  null;
     }
 
-    private MavenDependency toDependency(String response){
+    private MavenResponseDTO toDependency(String response){
         try {
             ObjectMapper mapper = new ObjectMapper();
-            return  mapper.readValue(response, MavenDependency.class);
+            return  mapper.readValue(response, MavenResponseDTO.class);
         } catch (Exception e) {
             throw  new RuntimeException();
         }
