@@ -2,6 +2,7 @@ package br.com.jmw;
 
 import br.com.jmw.command.JmwCommand;
 import br.com.jmw.command.QuarkusCommand;
+import br.com.jmw.command.search.SearchCommand;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -13,6 +14,9 @@ import javax.inject.Inject;
 
 @QuarkusMain
 public class JmwApplication implements QuarkusApplication {
+    @Inject
+    private SearchCommand searchCommand;
+
     @Override
     public int run(String... args) throws Exception {
         if(args.length == 0) {
@@ -23,7 +27,7 @@ public class JmwApplication implements QuarkusApplication {
             args = CommandLineUtils.translateCommandline(args[0]);
         }
         return   new CommandLine(new JmwCommand())
-                //.addSubcommand(new JmwCommand())
+                .addSubcommand(searchCommand)
                 .execute(args);
     }
 }
