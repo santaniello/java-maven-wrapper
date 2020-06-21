@@ -9,6 +9,6 @@ import lombok.ToString;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @RegisterForReflection
-public class Dependency {
+public class MavenDependency {
     private Response response;
 }

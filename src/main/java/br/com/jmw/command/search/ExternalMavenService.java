@@ -1,6 +1,6 @@
 package br.com.jmw.command.search;
 
-import br.com.jmw.command.search.dtos.Dependency;
+import br.com.jmw.command.search.dtos.MavenDependency;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.enterprise.context.Dependent;
@@ -14,8 +14,7 @@ import java.net.http.HttpResponse;
 public class ExternalMavenService {
     private HttpClient httpClient;
     private final String URL_SEARCH_MAVEN =  "https://search.maven.org/solrsearch/select";
-    private final String FORMAT =  "json";
-    private final String ROWS = "2";
+    private final String EXTENSION =  "json";
 
     public ExternalMavenService() {
         this.httpClient = HttpClient.newBuilder()
@@ -24,14 +23,13 @@ public class ExternalMavenService {
                 .build();
     }
 
-    public Dependency search(String dependency){
+    public MavenDependency search(String dependency, String limit){
         try {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(URL_SEARCH_MAVEN+"?q="+dependency+"&rows="+ROWS+"&wt="+FORMAT))
+                .uri(URI.create(URL_SEARCH_MAVEN+"?q="+dependency+"&rows="+limit+"&wt="+EXTENSION))
                 .build();
             String body = httpClient.send(request, HttpResponse.BodyHandlers.ofString()).body();
-            System.out.println(body);
             return toDependency(body);
         } catch (IOException e) {
             e.printStackTrace();
@@ -41,10 +39,10 @@ public class ExternalMavenService {
         return  null;
     }
 
-    private Dependency toDependency(String response){
+    private MavenDependency toDependency(String response){
         try {
             ObjectMapper mapper = new ObjectMapper();
-            return  mapper.readValue(response, Dependency.class);
+            return  mapper.readValue(response, MavenDependency.class);
         } catch (Exception e) {
             throw  new RuntimeException();
         }
