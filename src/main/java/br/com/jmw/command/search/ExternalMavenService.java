@@ -16,7 +16,6 @@ public class ExternalMavenService {
     private final String URL_SEARCH_MAVEN =  "https://search.maven.org/solrsearch/select";
     private final String FORMAT =  "json";
     private final String ROWS = "2";
-    private String dependency = "guice";
 
     public ExternalMavenService() {
         this.httpClient = HttpClient.newBuilder()
@@ -25,7 +24,7 @@ public class ExternalMavenService {
                 .build();
     }
 
-    public Dependency searchDependency(){
+    public Dependency searchDependency(String dependency){
         try {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
