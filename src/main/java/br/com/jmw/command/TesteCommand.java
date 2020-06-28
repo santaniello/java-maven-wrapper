@@ -1,6 +1,6 @@
 package br.com.jmw.command;
 
-import br.com.jmw.command.search.ExternalMavenService;
+import br.com.jmw.command.search.MavenService;
 import picocli.CommandLine;
 
 import javax.enterprise.context.Dependent;
@@ -11,7 +11,7 @@ import javax.inject.Inject;
 public class TesteCommand implements Runnable{
 
     @Inject
-    private ExternalMavenService mavenService;
+    private MavenService mavenService;
 
     @Override
     public void run() {
