@@ -4,7 +4,10 @@ import br.com.jmw.command.search.dto.DocDTO;
 import br.com.jmw.command.search.dto.MavenResponseDTO;
 import br.com.jmw.model.MavenDependency;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MapperToMavenDependency {
@@ -19,10 +22,15 @@ public class MapperToMavenDependency {
                    .groupId(docs[count].getGroupId())
                    .artifactId(docs[count].getArtifactId())
                    .version(docs[count].getLatestVersion())
-                   .date(docs[count].getTimestamp())
+                   .date(toLocalDate(docs[count].getTimestamp()))
                    .build()
             );
         }
         return  dependencies;
+    }
+
+
+    private LocalDate toLocalDate(Date date){
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 }
