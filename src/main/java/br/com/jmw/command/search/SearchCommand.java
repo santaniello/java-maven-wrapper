@@ -16,15 +16,15 @@ public class SearchCommand implements Runnable {
     @Inject
     private MavenService mavenService;
 
-    @CommandLine.Option(names = {"-d", "--dependency"}, description = "Dependency's name")
-    private String name;
+    @CommandLine.Parameters(index = "0", description = "Dependency's name")
+    private String dependencyName;
 
-    @CommandLine.Option(names = {"-l", "--limit"}, description = "Quantity of dependencies to show", defaultValue = "2")
+    @CommandLine.Option(names = {"-l", "--limit"}, description = "Quantity of dependencies to show", defaultValue = "5")
     private String limit;
 
     @Override
     public void run() {
-        List<MavenDependency> dependencies = mavenService.search(name, limit);
+        List<MavenDependency> dependencies = mavenService.search(dependencyName, limit);
         if(!dependencies.isEmpty()) {
             CommandLineTable st = new CommandLineTable();
             st.setShowVerticalLines(true);//if false (default) then no vertical lines are shown
