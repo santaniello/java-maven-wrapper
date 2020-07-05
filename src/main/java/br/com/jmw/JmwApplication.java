@@ -1,7 +1,6 @@
 package br.com.jmw;
 
 import br.com.jmw.command.JmwCommand;
-import br.com.jmw.command.TesteCommand;
 import br.com.jmw.command.search.SearchCommand;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
@@ -16,8 +15,6 @@ import javax.inject.Inject;
 public class JmwApplication implements QuarkusApplication {
     @Inject
     private SearchCommand searchCommand;
-    @Inject
-    private TesteCommand testeCommand;
 
     @Override
     public int run(String... args) throws Exception {

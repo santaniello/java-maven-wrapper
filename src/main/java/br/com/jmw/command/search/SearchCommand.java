@@ -1,7 +1,6 @@
 package br.com.jmw.command.search;
 
 
-import br.com.jmw.command.search.dto.MavenResponseDTO;
 import br.com.jmw.menu.CommandLineTable;
 import br.com.jmw.model.MavenDependency;
 import picocli.CommandLine;
@@ -26,12 +25,16 @@ public class SearchCommand implements Runnable {
     @Override
     public void run() {
         List<MavenDependency> dependencies = mavenService.search(name, limit);
-        CommandLineTable st = new CommandLineTable();
-        st.setShowVerticalLines(true);//if false (default) then no vertical lines are shown
-        st.setHeaders("id", "groupId", "artifactId","version","date");//optional - if not used then there will be no header and horizontal lines
-        dependencies.forEach(d->{
-            st.addRow(d.getId(), d.getGroupId(), d.getArtifactId(), d.getVersion(), d.getFormattedDate());
-        });
-        st.print();
+        if(!dependencies.isEmpty()) {
+            CommandLineTable st = new CommandLineTable();
+            st.setShowVerticalLines(true);//if false (default) then no vertical lines are shown
+            st.setHeaders("id", "groupId", "artifactId", "version", "date");//optional - if not used then there will be no header and horizontal lines
+            dependencies.forEach(d -> {
+                st.addRow(d.getId(), d.getGroupId(), d.getArtifactId(), d.getVersion(), d.getFormattedDate());
+            });
+            st.print();
+        }else{
+            System.err.print("Search dependencies were not found !");
+        }
     }
 }

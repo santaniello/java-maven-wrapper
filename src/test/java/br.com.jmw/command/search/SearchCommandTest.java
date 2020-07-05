@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static br.com.jmw.template.MavenDependencyTemplate.getMavenDependency;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,13 +44,20 @@ public class SearchCommandTest extends UnitTestCommon {
     }
 
     @Test
-    public void should_print_dependency_in_console() {
+    public void should_print_dependency_table_in_console() {
         Mockito.when(mavenService.search(any(),any())).thenReturn(Arrays.asList(getMavenDependency()));
         searchCommand.run();
-        assertEquals(String.format(getTableDependency()), outContent.toString());
+        assertEquals(String.format(getTableDependencies()), outContent.toString());
     }
 
-    private String getTableDependency(){
+    @Test
+    public void should_print_message_in_console_when_dependency_table_is_empty() {
+        Mockito.when(mavenService.search(any(),any())).thenReturn(Collections.emptyList());
+        searchCommand.run();
+        assertEquals(String.format("Search dependencies were not found !"), errContent.toString());
+    }
+
+    private String getTableDependencies(){
         String out =   String.format("" +"+-----------------------------+-----------------------+------------+---------+----------------+%n"+
                                          "| id                          | groupId               | artifactId | version | date           |%n"+
                                          "+-----------------------------+-----------------------+------------+---------+----------------+%n"+
