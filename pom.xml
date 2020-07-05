@@ -17,7 +17,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <surefire-plugin.version>2.22.1</surefire-plugin.version>
         <!-- Quarkus -->
-        <quarkus-plugin.version>1.4.0.Final</quarkus-plugin.version>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.version>1.5.2.Final</quarkus.platform.version>
@@ -101,7 +100,7 @@
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
-                <version>${quarkus-plugin.version}</version>
+                <version>${quarkus.platform.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -134,7 +133,7 @@
                     <plugin>
                         <groupId>io.quarkus</groupId>
                         <artifactId>quarkus-maven-plugin</artifactId>
-                        <version>${quarkus-plugin.version}</version>
+                        <version>${quarkus.platform.version}</version>
                         <executions>
                             <execution>
                                 <goals>
