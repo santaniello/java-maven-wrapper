@@ -7,6 +7,7 @@ import picocli.CommandLine;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import java.sql.SQLOutput;
 import java.util.List;
 
 @Dependent
@@ -27,17 +28,21 @@ public class SearchCommand implements Runnable {
 
     @Override
     public void run() {
-        List<MavenDependency> dependencies = mavenService.search(dependencyName, limit);
-        if(!dependencies.isEmpty()) {
-            CommandLineTable st = new CommandLineTable();
-            st.setShowVerticalLines(true);//if false (default) then no vertical lines are shown
-            st.setHeaders("id", "groupId", "artifactId", "version", "date");//optional - if not used then there will be no header and horizontal lines
-            dependencies.forEach(d -> {
-                st.addRow(d.getId(), d.getGroupId(), d.getArtifactId(), d.getVersion(), d.getFormattedDate());
-            });
-            st.print();
-        }else{
-            System.err.print("Dependencies were not found !");
+        try {
+            List<MavenDependency> dependencies = mavenService.search(dependencyName, limit);
+            if (!dependencies.isEmpty()) {
+                CommandLineTable st = new CommandLineTable();
+                st.setShowVerticalLines(true);//if false (default) then no vertical lines are shown
+                st.setHeaders("id", "groupId", "artifactId", "version", "date");//optional - if not used then there will be no header and horizontal lines
+                dependencies.forEach(d -> {
+                    st.addRow(d.getId(), d.getGroupId(), d.getArtifactId(), d.getVersion(), d.getFormattedDate());
+                });
+                st.print();
+            } else {
+                System.err.print("Dependencies were not found !");
+            }
+        }catch(IllegalArgumentException ex){
+            System.err.println(ex.getMessage());
         }
     }
 }

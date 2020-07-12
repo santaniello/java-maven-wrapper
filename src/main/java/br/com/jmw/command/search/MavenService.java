@@ -22,15 +22,18 @@ public class MavenService {
             String reponse = mavenRepository.search(dependencyName, limit);
             MavenResponseDTO mavenResponseDTO = mapper.readValue(reponse, MavenResponseDTO.class);
             return new  MapperToMavenDependency().toMavenDependency(mavenResponseDTO);
+        }catch (IllegalArgumentException ex){
+            throw new IllegalArgumentException(ex.getMessage());
         }catch(Exception ex){
            return Collections.emptyList();
         }
     }
 
-    // TODO Improve this validation!
     private void validParameters(String dependencyName, String limit){
-       if(dependencyName == null || dependencyName.equals("") || limit == null ||limit.equals("")){
-          throw new IllegalArgumentException("The parameter dependency and limit are mandatory!");
-       }
+       if(dependencyName == null || dependencyName.isEmpty() || dependencyName.isBlank() )
+          throw new IllegalArgumentException("The parameter dependency is invalid !");
+
+       if(limit == null || limit.isEmpty() || limit.isBlank())
+           throw new IllegalArgumentException("The parameter limit is invalid !");
     }
 }

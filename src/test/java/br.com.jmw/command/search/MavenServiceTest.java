@@ -4,6 +4,7 @@ import br.com.jmw.UnitTestCommon;
 import br.com.jmw.model.MavenDependency;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.wildfly.common.Assert;
@@ -26,8 +27,8 @@ public class MavenServiceTest extends UnitTestCommon {
     @Test
     public void should_search_dependencies_in_maven_repository(){
         Mockito.when(mavenRepository.search(anyString(),anyString())).thenReturn(getFileFromResourcesAsString("dependency_test.json"));
-        List<MavenDependency> dependencies = mavenService.search("guice", "5");
-        assertTrue(dependencies.size() > 0);
+        List<MavenDependency> dependencies = mavenService.search("guice", "3");
+        assertTrue(dependencies.size() == 3);
         dependencies.forEach(d->{
             Assert.assertNotNull(d.getId());
             Assert.assertNotNull(d.getGroupId());
@@ -45,8 +46,21 @@ public class MavenServiceTest extends UnitTestCommon {
     }
 
     @Test
-    public void should_return_a_empt_list_when_parameters_are_invalid()  {
-        List<MavenDependency> dependencies = mavenService.search(null, "4");
-        assertTrue(dependencies.isEmpty());
+    public void should_return_a_empt_list_when_dependency_name_parameter_is_invalid()  {
+        Exception exception = Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () ->  mavenService.search(null, "4")
+        );
+        Assertions.assertEquals(exception.getMessage(), "The parameter dependency is invalid !");
+    }
+
+
+    @Test
+    public void should_return_a_error_when_limit_parameters_are_invalid()  {
+        Exception exception = Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () ->  mavenService.search("guice", null)
+        );
+        Assertions.assertEquals(exception.getMessage(), "The parameter limit is invalid !");
     }
 }

@@ -33,7 +33,7 @@ public class SearchCommandIT {
     }
 
     @Test
-    public void should_print_dependency_in_console() throws IOException, InterruptedException {
+    public void should_print_help_command_in_console() throws IOException, InterruptedException {
         String exected = String.format("" +
                 "Usage: <main class> search [-hV] [-l=<limit>] <dependencyName>%n" +
                 "Search a depedency in maven repository%n" +
