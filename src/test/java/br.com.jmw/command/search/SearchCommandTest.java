@@ -51,10 +51,10 @@ public class SearchCommandTest extends UnitTestCommon {
     }
 
     @Test
-    public void should_print_message_in_console_when_dependency_table_is_empty() {
+    public void should_print_message_error_in_console_when_dependency_is_not_found() {
         Mockito.when(mavenService.search(any(),any())).thenReturn(Collections.emptyList());
         searchCommand.run();
-        assertEquals(String.format("Search dependencies were not found !"), errContent.toString());
+        assertEquals(String.format("Dependencies were not found !"), errContent.toString());
     }
 
     private String getTableDependencies(){

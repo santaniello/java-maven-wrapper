@@ -10,7 +10,10 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Dependent
-@CommandLine.Command(name = "search", description = "Search a depedency in maven repository")
+@CommandLine.Command(name = "search",
+    mixinStandardHelpOptions = true,
+    description = "Search a depedency in maven repository",
+    version = "search command - 1.0.0")
 public class SearchCommand implements Runnable {
 
     @Inject
@@ -34,7 +37,7 @@ public class SearchCommand implements Runnable {
             });
             st.print();
         }else{
-            System.err.print("Search dependencies were not found !");
+            System.err.print("Dependencies were not found !");
         }
     }
 }

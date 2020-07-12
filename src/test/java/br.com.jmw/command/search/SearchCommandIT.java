@@ -33,20 +33,32 @@ public class SearchCommandIT {
     }
 
     @Test
-    @Disabled
     public void should_print_dependency_in_console() throws IOException, InterruptedException {
-        Process process = new ProcessBuilder(executable, "search","guice","-l","1").start();
+        String exected = String.format("" +
+                "Usage: <main class> search [-hV] [-l=<limit>] <dependencyName>%n" +
+                "Search a depedency in maven repository%n" +
+                "      <dependencyName>   Dependency's name%n" +
+                "  -h, --help             Show this help message and exit.%n" +
+                "  -l, --limit=<limit>    Quantity of dependencies to show%n" +
+                "  -V, --version          Print version information and exit.%n");
+        Process process = new ProcessBuilder(executable, "search","-h").start();
         process.waitFor(3, TimeUnit.SECONDS);
-        assertEquals(getTableDependencies(), NativeImageHelper.getStdOut(process));
+        assertEquals(exected, NativeImageHelper.getStdOut(process));
     }
 
-    private String getTableDependencies(){
-        String out =   String.format("" +"+----------------------------+----------------------+------------+---------+----------------+%n" +
-                                         "| id                         | groupId              | artifactId | version | date           |%n" +
-                                         "+----------------------------+----------------------+------------+---------+----------------+%n" +
-                                         "| com.codeborne.replay:guice | com.codeborne.replay | guice      | 1.7     | (jun 30, 2020) |%n" +
-                                         "+----------------------------+----------------------+------------+---------+----------------+%n");
-        return  out;
+    @Test
+    public void should_print_search_command_version() throws IOException, InterruptedException {
+        String exected = String.format("" +"search command - 1.0.0%n");
+        Process process = new ProcessBuilder(executable, "search","--version").start();
+        process.waitFor(3, TimeUnit.SECONDS);
+        assertEquals(exected, NativeImageHelper.getStdOut(process));
     }
 
+    @Test
+    public void should_print_message_error_in_console_when_dependency_is_not_found() throws IOException, InterruptedException {
+        String exected = String.format("" +"search command - 1.0.0%n");
+        Process process = new ProcessBuilder(executable, "search","--version").start();
+        process.waitFor(3, TimeUnit.SECONDS);
+        assertEquals(exected, NativeImageHelper.getStdOut(process));
+    }
 }
