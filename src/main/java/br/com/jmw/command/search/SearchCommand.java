@@ -7,7 +7,6 @@ import picocli.CommandLine;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
-import java.sql.SQLOutput;
 import java.util.List;
 
 @Dependent

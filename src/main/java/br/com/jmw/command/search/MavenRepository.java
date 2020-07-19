@@ -1,7 +1,6 @@
 package br.com.jmw.command.search;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Singleton;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
