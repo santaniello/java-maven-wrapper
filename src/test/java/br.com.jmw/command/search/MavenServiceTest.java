@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 
 @QuarkusTest
 public class MavenServiceTest extends UnitTestCommon {
@@ -47,6 +47,7 @@ public class MavenServiceTest extends UnitTestCommon {
 
     @Test
     public void should_return_a_empt_list_when_dependency_name_parameter_is_invalid()  {
+        Mockito.when(mavenRepository.search(any(),anyString())).thenThrow(new IllegalArgumentException("The parameter dependency is invalid !"));
         Exception exception = Assertions.assertThrows(
                 IllegalArgumentException.class,
                 () ->  mavenService.search(null, "4")
@@ -56,7 +57,8 @@ public class MavenServiceTest extends UnitTestCommon {
 
 
     @Test
-    public void should_return_a_error_when_limit_parameters_are_invalid()  {
+    public void should_return_a_error_when_limit_parameter_is_invalid()  {
+        Mockito.when(mavenRepository.search(any(),any())).thenThrow(new IllegalArgumentException("The parameter limit is invalid !"));
         Exception exception = Assertions.assertThrows(
                 IllegalArgumentException.class,
                 () ->  mavenService.search("guice", null)

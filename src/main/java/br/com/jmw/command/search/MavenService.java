@@ -17,7 +17,7 @@ public class MavenService {
 
     public List<MavenDependency> search(String dependencyName, String limit) {
         try {
-            validParameters(dependencyName,limit);
+            //validParameters(dependencyName,limit);
             ObjectMapper mapper = new ObjectMapper();
             String reponse = mavenRepository.search(dependencyName, limit);
             MavenResponseDTO mavenResponseDTO = mapper.readValue(reponse, MavenResponseDTO.class);
@@ -29,11 +29,5 @@ public class MavenService {
         }
     }
 
-    private void validParameters(String dependencyName, String limit){
-       if(dependencyName == null || dependencyName.isEmpty() || dependencyName.isBlank() )
-          throw new IllegalArgumentException("The parameter dependency is invalid !");
 
-       if(limit == null || limit.isEmpty() || limit.isBlank())
-           throw new IllegalArgumentException("The parameter limit is invalid !");
-    }
 }

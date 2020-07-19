@@ -11,31 +11,42 @@ import java.net.http.HttpResponse;
 
 @ApplicationScoped
 public class MavenRepository {
-    private HttpClient httpClient;
-    //private final String URL_SEARCH_MAVEN =  "https://search.maven.org/solrsearch/select";
+
+    private HttpClient _httpClient;
+
     private final String EXTENSION =  "json";
+
     @ConfigProperty(name = "maven.url")
     private String _url;
 
     public MavenRepository() {
-        this.httpClient = HttpClient.newBuilder()
-                .version(HttpClient.Version.HTTP_1_1)
-                //.connectTimeout(Duration.ofSeconds(10))
-                .build();
+        _httpClient = HttpClient.newBuilder()
+              .version(HttpClient.Version.HTTP_1_1)
+               //.connectTimeout(Duration.ofSeconds(10))
+              .build();
     }
 
     public String search(String dependency, String limit){
+        validParameters(dependency,limit);
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .GET()
                     .uri(URI.create(_url+"?q="+dependency+"&rows="+limit+"&wt="+EXTENSION))
                     .build();
-            return httpClient.send(request, HttpResponse.BodyHandlers.ofString()).body();
+            return _httpClient.send(request, HttpResponse.BodyHandlers.ofString()).body();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return  null;
+    }
+
+    private void validParameters(String dependencyName, String limit){
+        if(dependencyName == null || dependencyName.isEmpty() || dependencyName.isBlank() )
+            throw new IllegalArgumentException("The parameter dependency is invalid !");
+
+        if(limit == null || limit.isEmpty() || limit.isBlank())
+            throw new IllegalArgumentException("The parameter limit is invalid !");
     }
 }
