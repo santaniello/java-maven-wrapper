@@ -1,5 +1,6 @@
 package br.com.jmw.command.search;
 
+import br.com.jmw.IntegrationException;
 import br.com.jmw.UnitTestCommon;
 import br.com.jmw.model.MavenDependency;
 import io.quarkus.test.junit.QuarkusTest;
@@ -64,5 +65,14 @@ public class MavenServiceTest extends UnitTestCommon {
                 () ->  mavenService.search("guice", null)
         );
         Assertions.assertEquals(exception.getMessage(), "The parameter limit is invalid !");
+    }
+
+    @Test
+    public void should_pass_along_the_integration_exception_when_maven_repository_throw_it()  {
+        Mockito.when(mavenRepository.search(any(),any())).thenThrow(new IntegrationException("Error message"));
+        Assertions.assertThrows(
+                IntegrationException.class,
+                () ->  mavenService.search("guice", "4")
+        );
     }
 }

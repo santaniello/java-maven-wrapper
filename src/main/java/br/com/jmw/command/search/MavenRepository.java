@@ -1,5 +1,7 @@
 package br.com.jmw.command.search;
 
+import br.com.jmw.IntegrationException;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -8,6 +10,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 
 @ApplicationScoped
 public class MavenRepository {
@@ -22,7 +25,7 @@ public class MavenRepository {
     public MavenRepository() {
         _httpClient = HttpClient.newBuilder()
               .version(HttpClient.Version.HTTP_1_1)
-               //.connectTimeout(Duration.ofSeconds(10))
+              .connectTimeout(Duration.ofMillis(500))
               .build();
     }
 
@@ -34,12 +37,9 @@ public class MavenRepository {
                     .uri(URI.create(_url+"?q="+dependency+"&rows="+limit+"&wt="+EXTENSION))
                     .build();
             return _httpClient.send(request, HttpResponse.BodyHandlers.ofString()).body();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            throw new IntegrationException("Error when integrating with Maven. Reason: "+ ExceptionUtils.getRootCauseMessage(ex));
         }
-        return  null;
     }
 
     private void validParameters(String dependencyName, String limit){
