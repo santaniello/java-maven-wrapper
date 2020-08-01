@@ -17,7 +17,7 @@ import java.util.List;
 public class SearchCommand implements Runnable {
 
     @Inject
-    private MavenService mavenService;
+    private SearchService mavenService;
 
     @CommandLine.Parameters(index = "0", description = "Dependency's name")
     private String dependencyName;

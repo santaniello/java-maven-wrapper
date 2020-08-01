@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 @ApplicationScoped
-public class MavenService {
+public class SearchService {
 
     @Inject
     private MavenRepository mavenRepository;

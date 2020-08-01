@@ -17,18 +17,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.*;
 
 @QuarkusTest
-public class MavenServiceTest extends UnitTestCommon {
+public class SearchServiceTest extends UnitTestCommon {
 
     @InjectMock
     private MavenRepository mavenRepository;
 
     @Inject
-    private MavenService mavenService;
+    private SearchService searchService;
 
     @Test
     public void should_search_dependencies_in_maven_repository(){
         Mockito.when(mavenRepository.search(anyString(),anyString())).thenReturn(getFileFromResourcesAsString("dependency_test.json"));
-        List<MavenDependency> dependencies = mavenService.search("guice", "3");
+        List<MavenDependency> dependencies = searchService.search("guice", "3");
         assertTrue(dependencies.size() == 3);
         dependencies.forEach(d->{
             Assert.assertNotNull(d.getId());
@@ -42,7 +42,7 @@ public class MavenServiceTest extends UnitTestCommon {
     @Test
     public void should_return_a_empt_list_when_dependency_does_not_found()  {
         Mockito.when(mavenRepository.search(anyString(),anyString())).thenReturn("");
-        List<MavenDependency> dependencies = mavenService.search("dddddd", "4");
+        List<MavenDependency> dependencies = searchService.search("dddddd", "4");
         assertTrue(dependencies.isEmpty());
     }
 
@@ -51,7 +51,7 @@ public class MavenServiceTest extends UnitTestCommon {
         Mockito.when(mavenRepository.search(any(),anyString())).thenThrow(new IllegalArgumentException("The parameter dependency is invalid !"));
         Exception exception = Assertions.assertThrows(
                 IllegalArgumentException.class,
-                () ->  mavenService.search(null, "4")
+                () ->  searchService.search(null, "4")
         );
         Assertions.assertEquals(exception.getMessage(), "The parameter dependency is invalid !");
     }
@@ -62,7 +62,7 @@ public class MavenServiceTest extends UnitTestCommon {
         Mockito.when(mavenRepository.search(any(),any())).thenThrow(new IllegalArgumentException("The parameter limit is invalid !"));
         Exception exception = Assertions.assertThrows(
                 IllegalArgumentException.class,
-                () ->  mavenService.search("guice", null)
+                () ->  searchService.search("guice", null)
         );
         Assertions.assertEquals(exception.getMessage(), "The parameter limit is invalid !");
     }
@@ -72,7 +72,7 @@ public class MavenServiceTest extends UnitTestCommon {
         Mockito.when(mavenRepository.search(any(),any())).thenThrow(new IntegrationException("Error message"));
         Assertions.assertThrows(
                 IntegrationException.class,
-                () ->  mavenService.search("guice", "4")
+                () ->  searchService.search("guice", "4")
         );
     }
 }

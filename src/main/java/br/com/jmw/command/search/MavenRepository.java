@@ -5,7 +5,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
-import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -25,7 +24,7 @@ public class MavenRepository {
     public MavenRepository() {
         _httpClient = HttpClient.newBuilder()
               .version(HttpClient.Version.HTTP_1_1)
-              .connectTimeout(Duration.ofMillis(500))
+              .connectTimeout(Duration.ofSeconds(1))
               .build();
     }
 

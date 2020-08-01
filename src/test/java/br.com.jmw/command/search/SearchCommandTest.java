@@ -26,7 +26,7 @@ public class SearchCommandTest extends UnitTestCommon {
     private final PrintStream originalErr = System.err;
 
     @InjectMock
-    private MavenService mavenService;
+    private SearchService mavenService;
 
     @Inject
     private SearchCommand searchCommand;
